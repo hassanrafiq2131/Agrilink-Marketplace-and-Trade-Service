@@ -6,7 +6,7 @@
 const express = require("express");
 const router = express.Router();
 
-const productRoutes = require("./ProductRoutes"); // Match the case here if it's "ProductRoutes.js"
+const productRoutes = require("./productRoutes"); // Match the case here if it's "ProductRoutes.js"
 
 
 // Use product routes for `/products` endpoints

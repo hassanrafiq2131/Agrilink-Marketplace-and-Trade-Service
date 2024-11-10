@@ -23,4 +23,59 @@ let items = [
 let carts = {}; // Stores each user's cart
 let purchases = {}; // Stores each user's purchase history
 
-module.exports = { items, carts, purchases };
+
+
+
+const products = [
+  {
+    itemId: 'item1',
+    name: 'Apple',
+    category: 'Fruits',
+    description: 'Fresh red apples',
+    price: 10,
+    quantity: 100,
+    location: 'Farm 1',
+    sellerId: 'seller1',
+    attributes: {
+      breed: 'Gala',
+      age: 1,
+      weight: 1.2,
+      healthStatus: 'Healthy'
+    }
+  },
+  {
+    itemId: 'item2',
+    name: 'Banana',
+    category: 'Fruits',
+    description: 'Ripe bananas',
+    price: 5,
+    quantity: 200,
+    location: 'Farm 2',
+    sellerId: 'seller2',
+    attributes: {
+      breed: 'Cavendish',
+      age: 0.5,
+      weight: 1.1,
+      healthStatus: 'Healthy'
+    }
+  },
+  {
+    itemId: 'item3',
+    name: 'Orange',
+    category: 'Fruits',
+    description: 'Juicy oranges',
+    price: 8,
+    quantity: 150,
+    location: 'Farm 3',
+    sellerId: 'seller3',
+    attributes: {
+      breed: 'Navel',
+      age: 1.5,
+      weight: 1.3,
+      healthStatus: 'Healthy'
+    }
+  }
+];
+
+module.exports = {products, items, carts, purchases };
+

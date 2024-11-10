@@ -1,33 +1,44 @@
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const purchaseRoutes = require('./routes/purchaseRoutes');
-const sellRoutes = require('./routes/sellRoutes'); // Include the seller routes
-
-const productRoutes = require('./routes/productRoutes');
-
-
-
+// Load environment variables
 dotenv.config();
 
 // Initialize Express app
 const app = express();
 
+// Middleware
+app.use(express.json({ limit: "10mb" }));
+app.use(cors({ origin: true, credentials: true }));
 
-// Middleware configurations
-app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+// Check if Mongo URI is loaded
+console.log("Mongo URI:", process.env.MONGO_URI);
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/Microservice')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.log('MongoDB connection error: ', err));
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log("MongoDB connected successfully!");
+})
+.catch((error) => {
+  console.error("Error connecting to MongoDB:", error);
+});
 
 // Routes
-app.use('/api', purchaseRoutes); // Purchase routes
-app.use('/api', sellRoutes); // Seller routes (Add this line to enable testing seller routes)
+const productRoutes = require("./routes/productRoutes");
+app.use('/api', productRoutes);
+const searchRoutes = require('./routes/searchRoutes');
+app.use('/api', searchRoutes);
+
+
+
+
+//const productRoutes = require(".\routes\productRoutes.js");
+//const productRoutes = require("C:\Users\OGDCL\Desktop\Agrilink\Agrilink-Marketplace-and-Trade-Service\routes\productRoutes.js");
 
 app.use("/Products", productRoutes);
 
