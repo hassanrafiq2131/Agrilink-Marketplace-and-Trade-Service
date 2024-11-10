@@ -6,30 +6,39 @@
 // router.use(authMiddleware.verifyToken, authMiddleware.verifyFarmer);
 //router.get("/", dummyController.dummyFunction);
 
-module.exports = router;
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/Product"); // Ensure Product schema/model is set up in /models
+const Product = require("../models/Products"); // Import the Product model
+router.get("/", (req, res) => {
+  res.send("Product route");
+});
 
-// Search route to find products based on criteria
+// Search Route
 router.get("/search", async (req, res) => {
-  const { type, priceRange, location, availability } = req.query;
-  const filter = {};
-
-  // Build dynamic filter based on query params
-  if (type) filter.type = type;
-  if (location) filter.location = location;
-  if (availability) filter.availability = availability;
-  if (priceRange) {
-    const [minPrice, maxPrice] = priceRange.split("-");
-    filter.price = { $gte: minPrice, $lte: maxPrice };
-  }
-
   try {
+    const { name, category, priceRange } = req.query;
+
+    // Define the search filter
+    let filter = {};
+
+    // Add search filters based on provided query parameters
+    if (name) {
+      filter.name = new RegExp(name, "i"); // Case-insensitive search on name
+    }
+    if (category) {
+      filter.category = category;
+    }
+    if (priceRange) {
+      const [minPrice, maxPrice] = priceRange.split("-").map(Number);
+      filter.price = { $gte: minPrice, $lte: maxPrice }; // Price range filter
+    }
+
+    // Find products that match the filter
     const products = await Product.find(filter);
-    res.json(products);
+
+    res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching products" });
+    res.status(500).json({ message: "Error searching for products", error });
   }
 });
 
