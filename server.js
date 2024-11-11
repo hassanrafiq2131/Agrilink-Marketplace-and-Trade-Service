@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const routes = require("./routes/index"); 
 
 // Load environment variables
 dotenv.config();
@@ -17,22 +18,25 @@ app.use(cors({ origin: true, credentials: true }));
 console.log("Mongo URI:", process.env.MONGO_URI);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log("MongoDB connected successfully!");
-})
-.catch((error) => {
-  console.error("Error connecting to MongoDB:", error);
-});
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+// .then(() => {
+//   console.log("MongoDB connected successfully!");
+// })
+// .catch((error) => {
+//   console.error("Error connecting to MongoDB:", error);
+// });
 
 // Routes
+app.use("/api", routes);
 const productRoutes = require("./routes/productRoutes");
 app.use('/api', productRoutes);
 const searchRoutes = require('./routes/searchRoutes');
 app.use('/api', searchRoutes);
+const productListingRoutes = require("./routes/productListingRoute"); // Product listing route
+app.use('/api/products', productListingRoutes); // Product listing
 
 
 
@@ -42,7 +46,7 @@ app.use('/api', searchRoutes);
 
 app.use("/Products", productRoutes);
 
-const routes = require("./routes/index");
+
 app.use("/", routes);
 
 // Default route
