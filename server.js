@@ -1,3 +1,4 @@
+
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -11,33 +12,12 @@ const app = express();
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors());
 
-// Check if Mongo URI is loaded
-console.log("Mongo URI:", process.env.MONGO_URI);
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log("MongoDB connected successfully!");
-})
-.catch((error) => {
-  console.error("Error connecting to MongoDB:", error);
-});
-
-// Routes
-const productRoutes = require("./routes/productRoutes");
-app.use('/api', productRoutes);
 const searchRoutes = require('./routes/searchRoutes');
 app.use('/api', searchRoutes);
 
-
-
-
-//const productRoutes = require(".\routes\productRoutes.js");
+const productRoutes = require("./routes/productRoutes.js");
 //const productRoutes = require("C:\Users\OGDCL\Desktop\Agrilink\Agrilink-Marketplace-and-Trade-Service\routes\productRoutes.js");
 
 app.use("/Products", productRoutes);
@@ -55,3 +35,24 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
+// Check if Mongo URI is loaded
+//console.log("Mongo URI:", process.env.MONGO_URI);
+
+// Connect to MongoDB
+/*mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log("MongoDB connected successfully!");
+})
+.catch((error) => {
+  console.error("Error connecting to MongoDB:", error);
+});*/
+
+// Routes
+//const productRoutes = require("./routes/productRoutes");
+//app.use('/api', productRoutes);

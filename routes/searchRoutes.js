@@ -39,9 +39,9 @@ router.get('/search', (req, res) => {
       item.category.toLowerCase().includes(query.toLowerCase())
     );
   }
-
+  console.log(filteredItems);
   // Send the filtered results
-  res.json(filteredItems);
+  res.json({ data: filteredItems});
 });
 
 module.exports = router;
