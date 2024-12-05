@@ -37,8 +37,10 @@ const productRoutes = require("./routes/productRoutes");
 app.use('/api', productRoutes);
 const searchRoutes = require('./routes/searchRoutes');
 app.use('/api', searchRoutes);
-const productListingRoutes = require("./routes/productListingRoute"); // Product listing route
-app.use('/api/products', productListingRoutes); // Product listing
+
+const productListingRoute = require("./routes/productListingRoute"); // Product listing route
+app.use('/api/productListing', productListingRoute); // Product listing
+
 const purchaseRoute = require('./routes/purchaseRoutes');
 app.use('/api', purchaseRoute); // Product listing
 
