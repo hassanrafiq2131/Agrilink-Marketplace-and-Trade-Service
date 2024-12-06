@@ -44,7 +44,7 @@ app.use('/api/productListing', productListingRoute); // Product listing
 const purchaseRoute = require('./routes/purchaseRoutes');
 app.use('/api', purchaseRoute); // Product listing
 
-const productRoutes = require("./routes/productRoutes.js");
+// const productRoutes = require("./routes/productRoutes.js");
 //const productRoutes = require("C:\Users\OGDCL\Desktop\Agrilink\Agrilink-Marketplace-and-Trade-Service\routes\productRoutes.js");
 
 app.use("/Products", productRoutes);
